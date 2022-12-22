@@ -1,0 +1,64 @@
+<%= form_for @portfolio_item do |f| %>
+<% if portfolio_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(portfolio_item.errors.count, "error") %> prohibited this portfolio_item from being saved:</h2>
+
+      <ul>
+      <% portfolio_item.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= f.label :title %>
+        <%= f.text_field :title, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :subtitle %>
+        <%= f.text_field :subtitle, class: 'form-control' %>
+      </div>
+
+      <label class="btn btn-primary">
+        <%= f.label :images %>
+        <%= f.file_field :images %>
+      </lable>
+
+      <div class="form-group">
+        <%#= f.label :images %>
+        <%#= f.file_field :thumb_image %>
+      </div>
+
+    </div>
+
+    
+
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= f.label :body %>
+        <%= f.text_area :body, class: 'form-control', rows: 13 %>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="col-md-12">
+    <h2>Technolgies Used:</h2>
+    <div>
+      <%=f.fields_for :technologies do |technology_form| %>
+          <%= render 'technology_fields', f: technology_form%>
+      <% end %>
+    </div>
+    <div>
+      <%= link_to_add_association 'add task', f, :technologies %>
+    </div>
+    <div class="form-group">
+      <%= f.submit 'Save Portfolio Item', class: 'btn btn-primary btn-block' %>
+    </div>
+  </div>
+<% end %>
